@@ -1,0 +1,29 @@
+<div ng-app="myapp" ng-controller="tableController">
+    <table class="table table-stripe">
+        <thead>
+            <tr>
+                <th>empId</th>
+                <th>empName</th>
+                <th>dob</th>
+                <th>email</th>
+                <th>gender</th>
+                <th>deptId</th>
+                <th>file</th>
+                <th colspan="2" class="text-center">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of employeedata">
+                <td> {{item.empId }} </td>
+                <td> {{ item.employeeName }} </td>
+                <td> {{ item.dob }} </td>
+                <td> {{ item.email }} </td>
+                <td> {{ item.gender }} </td>
+                <td> {{ item.deptId }} </td>
+                <td> {{ item.file }} </td>
+                <td><button (click)="view(item.empId)" class="btn btn-success">View</button></td>
+                <td><button class="btn btn-danger">edit</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
