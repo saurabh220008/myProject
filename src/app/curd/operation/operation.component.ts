@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EmployeeServiceService } from 'src/app/services/employee-service.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-operation',
@@ -58,12 +59,46 @@ export class OperationComponent implements OnInit {
 
   delete(id: number) {
     debugger;
-    // this.student = localStorage.getItem('student');
-    // const studentobj = JSON.stringify(this.student);
-    // this.students.push(studentobj);
     console.log(id);
 
-    this.student.splice(id, 1);
+
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success px-2',
+        cancelButton: 'btn btn-danger px-2'
+      },
+      buttonsStyling: true
+    })
+
+    swalWithBootstrapButtons.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        swalWithBootstrapButtons.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+        this.student.splice(id, 1);
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire(
+          'Cancelled',
+          'Your record is safe :)',
+          'error'
+        )
+      }
+    })
+
+
   }
 
 }

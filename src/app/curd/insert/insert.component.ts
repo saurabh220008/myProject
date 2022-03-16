@@ -13,14 +13,13 @@ export class InsertComponent implements OnInit {
   tab!: number;
   id: any;
 
-
   constructor(private fb: FormBuilder, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    const data = localStorage.getItem("student")
-   JSON.parse(JSON.stringify(data));
+      const data = localStorage.getItem("student")
+     JSON.parse(JSON.stringify(data));
+  
 
-// const totalProps = users.reduce((a, obj) => a + Object.keys(obj).length, 0);
     const id = this.route.snapshot.paramMap.get("sid");
     console.log(id);
     this.id
@@ -33,6 +32,10 @@ export class InsertComponent implements OnInit {
         address: ['', Validators.required]
       })
     } else {
+
+      const getdatastring = localStorage.getItem('stuent');
+      let data = JSON.parse(this.getdatastring)
+
       this.insertForm = this.fb.group({
         name: ['', Validators.required],
         lastName: ['', Validators.required],
