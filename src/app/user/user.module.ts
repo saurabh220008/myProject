@@ -6,13 +6,15 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { LogInComponent } from './log-in/log-in.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ListingComponent } from './listing/listing.component';
+import { ViewSingleEmpComponent } from './view-single-emp/view-single-emp.component';
 
 
 @NgModule({
   declarations: [
     SignInComponent,
     LogInComponent,
-    ListingComponent
+    ListingComponent,
+    ViewSingleEmpComponent
   ],
   imports: [
     CommonModule,

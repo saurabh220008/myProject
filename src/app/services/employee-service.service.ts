@@ -11,4 +11,8 @@ export class EmployeeServiceService {
   getAllEmployee(){
     return this.http.get<any>("http://localhost:54818/api/Login/AllEmployeeDetails");
   }
+
+  getSingleEmp(eid:number){
+    return this.http.get<any>("http://localhost:54818/api/Login/GetEmployeeDetailsById?employeeid="+eid)
+  }
 }

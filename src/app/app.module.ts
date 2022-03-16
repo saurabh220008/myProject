@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { UserModule } from './user/user.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StepLogInComponent } from './MyComponents/step-log-in/step-log-in.component';
+import { CurdModule } from './curd/curd.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +20,8 @@ import { StepLogInComponent } from './MyComponents/step-log-in/step-log-in.compo
     ReactiveFormsModule,
     UserModule,
     NgbModule,
-    HttpClientModule
+    HttpClientModule,
+    CurdModule
   ],
   providers: [],
   bootstrap: [AppComponent]
