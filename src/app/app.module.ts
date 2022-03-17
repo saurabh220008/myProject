@@ -9,6 +9,9 @@ import { UserModule } from './user/user.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StepLogInComponent } from './MyComponents/step-log-in/step-log-in.component';
 import { CurdModule } from './curd/curd.module';
+import { AuthguardServiceService } from './services/authguard-service.service';
+import { AccountModule } from './account/account.module';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,9 +24,12 @@ import { CurdModule } from './curd/curd.module';
     UserModule,
     NgbModule,
     HttpClientModule,
-    CurdModule
+    CurdModule,
+    AccountModule
   ],
-  providers: [],
+  providers: [
+    AuthguardServiceService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -24,6 +24,9 @@
         <li class="nav-item">
           <a routerLink="/curd/insert/-1" class="nav-link active" aria-current="page" href="#">insert</a>
         </li>     
+        <li class="nav-item">
+          <a routerLink="/account/login" class="nav-link active" aria-current="page" href="#">ALogin</a>
+        </li>     
       </ul>
       <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
         <li class="nav-item">
@@ -32,6 +35,9 @@
         <li class="nav-item">
           <a routerLink="/user/logIn" class="nav-link active" aria-current="page" href="#">LogIn</a>
         </li>      
+        <li class="nav-item">
+          <a (click)="signout()" class="nav-link active" aria-current="page" href="#">logout</a>
+        </li>  
       </ul>
 
     </div>

@@ -11,11 +11,12 @@ export class StepLogInComponent implements OnInit {
   formsubmit!: boolean;
   stepForm!: any;
   stepForm1!: FormGroup;
-  
-   firsTab!:FormGroup;
-   second!:FormGroup;
+
+  firsTab!: FormGroup;
+  second!: FormGroup;
   tab: number = 1;
-  constructor(private fb: FormBuilder) {  }
+  user: '1';
+  constructor(private fb: FormBuilder) { }
 
   currentTab = 0;
   // Display the current tab
@@ -25,6 +26,10 @@ export class StepLogInComponent implements OnInit {
   contactPattern = "^((\\+91-?)|0)?[0-9]{10}$";
 
   ngOnInit(): void {
+
+    localStorage.setItem('sessionUser', this.user);
+
+
     this.stepForm = this.fb.group({
       name: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
@@ -32,7 +37,7 @@ export class StepLogInComponent implements OnInit {
       contact: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$"), Validators.maxLength(10), Validators.minLength(10)]],
     });
 
-    
+
     this.stepForm1 = this.fb.group([
       this.firsTab = this.fb.group({
         name: ['', [Validators.required]],
@@ -41,13 +46,13 @@ export class StepLogInComponent implements OnInit {
       }),
       this.second = this.fb.group({
         email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
-      contact: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$"), Validators.maxLength(10), Validators.minLength(10)]],
+        contact: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$"), Validators.maxLength(10), Validators.minLength(10)]],
 
 
       })
 
 
-    ]) 
+    ])
   }
 
   onSubmit(form: FormGroup) {
@@ -65,8 +70,7 @@ export class StepLogInComponent implements OnInit {
   next() {
     debugger;
     if (this.tab == 1) {
-      if(this.stepForm.get("name").valid && this.stepForm.get("lastName").valid)
-      { 
+      if (this.stepForm.get("name").valid && this.stepForm.get("lastName").valid) {
         this.tab++;
       }
     }
