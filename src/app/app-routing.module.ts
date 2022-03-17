@@ -14,10 +14,6 @@ const routes: Routes = [
   {
     path: "curd",
     loadChildren: () => import('./curd/curd.module').then(m => m.CurdModule)
-  },
-  {
-    path:"curdlocal",
-    loadChildren:() => import('./curd-local/curd-local.module').then(m =>m.CurdLocalModule)
   }
 ];
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EmployeeServiceService } from 'src/app/services/employee-service.service';
 import Swal from 'sweetalert2';
 
@@ -10,9 +11,11 @@ import Swal from 'sweetalert2';
 })
 export class OperationComponent implements OnInit {
   student: any;
+  singlestudent: any;
   this: any;
+  closeResult = '';
 
-  constructor(private service: EmployeeServiceService, private router: Router) { }
+  constructor(private service: EmployeeServiceService, private router: Router, private modalService: NgbModal) { }
 
   ngOnInit() {
     // this.getAllEmp();
@@ -23,6 +26,7 @@ export class OperationComponent implements OnInit {
   sid!: number;
   stuentdata: any;
   students = [];
+  id: number;
 
 
   // getAllEmp() {
@@ -46,6 +50,27 @@ export class OperationComponent implements OnInit {
     // });
   }
 
+  open(content: any, i: number) {
+    debugger;
+    this.singlestudent = this.student[i];
+    this.id = this.student[i];
+    this.modalService.open(content, { size: 'lg', ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
   edit(id: number) {
     this.sid = id;
     this.router.navigateByUrl('/curd/insert/' + this.sid);
@@ -59,8 +84,6 @@ export class OperationComponent implements OnInit {
 
   delete(id: number) {
     debugger;
-    console.log(id);
-
 
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
@@ -86,6 +109,8 @@ export class OperationComponent implements OnInit {
           'success'
         )
         this.student.splice(id, 1);
+        localStorage.setItem("student", JSON.stringify(this.student));
+
       } else if (
         /* Read more about handling dismissals below */
         result.dismiss === Swal.DismissReason.cancel
@@ -97,8 +122,6 @@ export class OperationComponent implements OnInit {
         )
       }
     })
-
-
   }
 
 }
