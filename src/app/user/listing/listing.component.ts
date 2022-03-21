@@ -26,18 +26,20 @@ export class ListingComponent implements OnInit {
 
   view(id: number) {
     this.eid = id;
-    // this.service.getAllEmployee().subscribe(data => {
-    //   console.log(JSON.stringify(data));
-    //   this.employeedata = data;
-    // });
-    // this.service.getSingleEmp(this.eid).subscribe(data => {
-    //   console.log(JSON.stringify(data));
-    //   this.singleEmployeedata = data;
-      this.router.navigateByUrl('/user/viewSingleEmp?eid='+this.eid);
-    //   this.singledata.emit(this.singleEmployeedata); 
-      
 
-    // });
+      this.router.navigateByUrl('/user/viewSingleEmp?eid='+this.eid);
+ 
+  }
+
+  delete(id:number){
+    debugger;
+
+    this.service.deleteEmployee(id).subscribe(data => {
+      console.log("----------------------------------------")
+      console.log(data);
+
+    });
+
   }
 
 

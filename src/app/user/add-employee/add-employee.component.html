@@ -1,0 +1,85 @@
+<div class="container">
+    <h5 class="text-center mt-5">Add Employee</h5>
+    <div class="row justify-content-center">
+        <div class="card mt-4 col-6">
+
+            <div class="card-body">
+                <form [formGroup]="addEmp" (ngSubmit)="onSubmit(addEmp)">
+                    <div class="mb-3">
+                        <label for="exampleInputEmpId1" class="form-label">EmpId</label>
+                        <input type="text" formControlName="EmpId" class="form-control" id="exampleInputEmpId1"
+                            required>
+                        <div class="text-danger" *ngIf="f['EmpId'].required && formsubmit">
+                            Please provide a EmpId.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleInputEmployeeName1" class="form-label">EmployeeName</label>
+                        <input type="text" formControlName="EmployeeName" class="form-control"
+                            id="exampleInputEmployeeName1" required>
+                        <div class="text-danger" *ngIf="f['EmployeeName'].required && formsubmit">
+                            Please provide a EmployeeName.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleInputDOB1" class="form-label">DOB</label>
+                        <input type="text" formControlName="DOB" class="form-control" id="exampleInputDOB1" required>
+                        <div class="text-danger" *ngIf="f['DOB'].required && formsubmit">
+                            Please provide a DOB.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Email address</label>
+                        <input type="text" formControlName="email" class="form-control" id="exampleInputEmail1"
+                            aria-describedby="emailHelp" required [pattern]="emailPattern">
+                        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                        <div class="text-danger" *ngIf="f['email'].required && formsubmit">
+                            Please provide a email.
+                        </div>
+                        <div class="text-danger" *ngIf="f['email'].errors?.pattern">
+                            Email not valid.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleInputDOB1" class="form-label">Gender</label>
+                        <div class="form-check">
+                            <input type="radio" formControlName="Gender" value="male" name="Gender"
+                                id="exampleInputDOB1" required>
+                            <label for="exampleInputDOB1" class="form-label mx-2">Male</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" formControlName="Gender" value="female" name="Gender"
+                                id="exampleInputGender1" required>
+                            <label for="exampleInputGender1" class="form-label mx-2">Female</label>
+                        </div>
+                        <div class="text-danger" *ngIf="f['Gender'].required && formsubmit">
+                            Please provide a Gender.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleInputDeptId1" class="form-label">DeptId</label>
+                        <input type="text" formControlName="DeptId" class="form-control" id="exampleInputDeptId1" required>
+                        <div class="text-danger" *ngIf="f['DeptId'].required && formsubmit">
+                            Please provide a DeptId.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleInputfile1" class="form-label">file</label>
+                        <input type="text" formControlName="file" class="form-control" id="exampleInputfile1" required>
+                        <div class="text-danger" *ngIf="f['file'].required && formsubmit">
+                            Please provide a file.
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

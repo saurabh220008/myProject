@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -25,7 +25,8 @@ import { AccountModule } from './account/account.module';
     NgbModule,
     HttpClientModule,
     CurdModule,
-    AccountModule
+    AccountModule,
+    FormsModule
   ],
   providers: [
     AuthguardServiceService

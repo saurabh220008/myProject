@@ -11,22 +11,34 @@
         </li>      
         <li class="nav-item">
           <a routerLink="/stepform" class="nav-link active" aria-current="page" href="#">Step Form</a>
-        </li>      
+        </li>
         <li class="nav-item">
-          <a routerLink="/user/listing" class="nav-link active" aria-current="page" href="#">list</a>
-        </li>      
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-primary" id="dropdownBasic1" title="User Module" ngbDropdownToggle>UserModule</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button ngbDropdownItem> <a routerLink="/user/listing" class="text-dark" aria-current="page" href="#">list</a></button>
+              <button ngbDropdownItem><a routerLink="/user/viewSingleEmp" class="text-dark" aria-current="page" href="#">ViewSingleEmp</a></button>
+            </div>
+          </div>
+        </li>    
         <li class="nav-item">
-          <a routerLink="/user/viewSingleEmp" class="nav-link active" aria-current="page" href="#">ViewSingleEmp</a>
-        </li>      
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-primary" id="dropdownBasic1" title="Curd Module" ngbDropdownToggle>CurdModule</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button ngbDropdownItem><a routerLink="/curd/operation" class="text-dark" aria-current="page" href="#">operation</a></button>
+              <button ngbDropdownItem><a routerLink="/curd/insert/-1" class="text-dark" aria-current="page" href="#">insert</a></button>
+            </div>
+          </div>
+        </li>    
+            
         <li class="nav-item">
-          <a routerLink="/curd/operation" class="nav-link active" aria-current="page" href="#">operation</a>
-        </li>      
-        <li class="nav-item">
-          <a routerLink="/curd/insert/-1" class="nav-link active" aria-current="page" href="#">insert</a>
-        </li>     
-        <li class="nav-item">
-          <a routerLink="/account/login" class="nav-link active" aria-current="page" href="#">ALogin</a>
-        </li>     
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-primary" id="dropdownBasic1" title="Account Module" ngbDropdownToggle>AccountModule</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button ngbDropdownItem><a routerLink="/account/login" class="text-dark" aria-current="page" href="#">ALogin</a></button>
+            </div>
+          </div>
+        </li>    
       </ul>
       <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
         <li class="nav-item">
@@ -35,7 +47,7 @@
         <li class="nav-item">
           <a routerLink="/user/logIn" class="nav-link active" aria-current="page" href="#">LogIn</a>
         </li>      
-        <li class="nav-item">
+        <li class="nav-item" [ngStyle]="btn">
           <a (click)="signout()" class="nav-link active" aria-current="page" href="#">logout</a>
         </li>  
       </ul>

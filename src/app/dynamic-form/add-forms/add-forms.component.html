@@ -1,0 +1,86 @@
+<div class="container">
+    <form [formGroup]="addForm" (ngSubmit)="onSubmit(addForm)">
+        <div class="row mt-3">
+            <!-- <div class="row"> -->
+            <div class="col-4">
+                <div class="mb-3">
+                    <label class="form-label" for="forname">Name:</label>
+                    <input formControlName="name" class="form-control" type="text" id="forname">
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="mb-3">
+                    <label class="form-label" for="forlastname">Surname:</label>
+                    <input formControlName="lastname" class="form-control" type="text" id="forlastname">
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="mb-3">
+                    <label class="form-label" for="fordob">DOB:</label>
+                    <input formControlName="dob" class="form-control" type="text" id="fordob">
+                </div>
+            </div>
+
+            <!-- </div> -->
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-4">
+                <div class="mb-3">
+                    <label class="form-label" for="forvehical">No. Of Vehicle :</label>
+                    <input formControlName="vehicle" class="form-control" type="text" (keyup)="onKeyDownEvent($event)"
+                        id="forvehicle">
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="mb-3">
+                    <label class="form-label" for="forcontat">contact:</label>
+                    <input formControlName="contact" class="form-control" type="text" id="forcontat">
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="mb-3">
+                    <button type="button" (click)="addRow(NOV)" class="btn btn-danger">Add Row</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Vehicle Name</th>
+                        <th>Vehicle Number</th>
+                        <th>Vehicle Model</th>
+                        <th>No. Of Wheels</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let dynamic of dynamicArray; let i = index">
+                        <td>
+                            <input [(ngModel)]="dynamicArray[i].vName" class="form-control" type="text" />
+                        </td>
+                        <td>
+                            <input [(ngModel)]="dynamicArray[i].vNumber" class="form-control" type="text" />
+                        </td>
+                        <td>
+                            <input [(ngModel)]="dynamicArray[i].vModel" class="form-control" type="text" />
+                        </td>
+                        <td>
+                            <input [(ngModel)]="dynamicArray[i].NOW" class="form-control" type="text" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row">
+            <div class="col-4">
+                <div class="mb-3">
+                    <button type="button" class="btn btn-success">Submit</button>
+                </div>
+            </div>
+
+        </div>
+
+    </form>
+</div>

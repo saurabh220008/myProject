@@ -26,6 +26,10 @@ const routes: Routes = [
   {
     path: "account",
     loadChildren: () => import('./account/account.module').then(m => m.AccountModule),
+  },
+  {
+    path: "dynamicForm",
+    loadChildren: () => import('./dynamic-form/dynamic-form.module').then(m => m.DynamicFormModule),
   }
 ];
 

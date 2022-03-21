@@ -8,11 +8,21 @@ export class EmployeeServiceService {
 
   constructor(private http: HttpClient) { }
 
-  getAllEmployee(){
+  getAllEmployee() {
     return this.http.get<any>("http://localhost:54818/api/Login/AllEmployeeDetails");
   }
 
-  getSingleEmp(eid:number){
-    return this.http.get<any>("http://localhost:54818/api/Login/GetEmployeeDetailsById?employeeid="+eid)
+  getSingleEmp(eid: number) {
+    return this.http.get<any>("http://localhost:54818/api/Login/GetEmployeeDetailsById?employeeid=" + eid)
+  }
+
+  postEmpDetails(emp: any) {
+    return this.http.post<any>("http://localhost:54818/api/Login/InsertEmployeeDetails", emp)
+  }
+
+  deleteEmployee(emp: number) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post("http://localhost:54818/api/Login/DeleteEmployee?id=" + emp,headers)
   }
 }
