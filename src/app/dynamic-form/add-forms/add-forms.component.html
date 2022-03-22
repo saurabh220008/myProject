@@ -5,19 +5,19 @@
             <div class="col-4">
                 <div class="mb-3">
                     <label class="form-label" for="forname">Name:</label>
-                    <input formControlName="name" class="form-control" type="text" id="forname">
+                    <input formControlName="name" class="form-control" type="text" id="forname" />
                 </div>
             </div>
             <div class="col-4">
                 <div class="mb-3">
                     <label class="form-label" for="forlastname">Surname:</label>
-                    <input formControlName="lastname" class="form-control" type="text" id="forlastname">
+                    <input formControlName="lastname" class="form-control" type="text" id="forlastname" />
                 </div>
             </div>
             <div class="col-4">
                 <div class="mb-3">
                     <label class="form-label" for="fordob">DOB:</label>
-                    <input formControlName="dob" class="form-control" type="text" id="fordob">
+                    <input formControlName="dob" class="form-control" type="text" id="fordob" />
                 </div>
             </div>
 
@@ -29,18 +29,18 @@
                 <div class="mb-3">
                     <label class="form-label" for="forvehical">No. Of Vehicle :</label>
                     <input formControlName="vehicle" class="form-control" type="text" (keyup)="onKeyDownEvent($event)"
-                        id="forvehicle">
+                        id="forvehicle" />
                 </div>
             </div>
             <div class="col-4">
                 <div class="mb-3">
                     <label class="form-label" for="forcontat">contact:</label>
-                    <input formControlName="contact" class="form-control" type="text" id="forcontat">
+                    <input formControlName="contact" class="form-control" type="text" id="forcontat" />
                 </div>
             </div>
             <div class="col-4">
                 <div class="mb-3">
-                    <button type="button" (click)="addRow(NOV)" class="btn btn-danger">Add Row</button>
+                    <button type="button" (click)="addRow(NOV)" class="btn btn-warning">Add Row</button>
                 </div>
             </div>
         </div>
@@ -55,28 +55,31 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let dynamic of dynamicArray; let i = index">
+                    <tr class="mb-3" *ngFor="let dynamic of dynamicArray; let i = index">
                         <td>
-                            <input [(ngModel)]="dynamicArray[i].vName" class="form-control" type="text" />
+                            <input formControlName="vName" [(ngModel)]="dynamicArray[i].vName" class="form-control" type="text" />
                         </td>
                         <td>
-                            <input [(ngModel)]="dynamicArray[i].vNumber" class="form-control" type="text" />
+                            <input formControlName="vNumber" [(ngModel)]="dynamicArray[i].vNumber" class="form-control" type="text" />
                         </td>
                         <td>
-                            <input [(ngModel)]="dynamicArray[i].vModel" class="form-control" type="text" />
+                            <input formControlName="vModel" [(ngModel)]="dynamicArray[i].vModel" class="form-control" type="text" />
                         </td>
                         <td>
-                            <input [(ngModel)]="dynamicArray[i].NOW" class="form-control" type="text" />
+                            <input formControlName="NOW" [(ngModel)]="dynamicArray[i].NOW" class="form-control" type="text" />
+                        </td>
+                        <td>
+                            <button type="button" (click)="deleteRow(i)"  class="btn btn-sm btn-danger">Delete</button>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
-        <div class="row">
+        <div class="row mt-3">
             <div class="col-4">
                 <div class="mb-3">
-                    <button type="button" class="btn btn-success">Submit</button>
+                    <button type="submit" class="btn btn-success">Submit</button>
                 </div>
             </div>
 

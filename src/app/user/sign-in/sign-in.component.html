@@ -7,63 +7,81 @@
                 <form [formGroup]="signInForm" (ngSubmit)="onSubmit(signInForm)">
                     <div class="mb-3">
                         <label for="exampleInputName1" class="form-label">Name</label>
-                        <input type="text" formControlName="name" class="form-control" id="exampleInputName1"
-                            aria-describedby="NameHelp" required [pattern]="alphaNumeric">
-                        <div class="text-danger"
-                            *ngIf="formsubmit && f['name'].errors">
-                            Please provide a name.
-                        </div>
-                        <div class="text-danger"
-                            *ngIf="formsubmit && f['name'].errors?.pattern">
-                            Please provide valid name.
+                        <input type="text" formControlName="name"
+                            [ngClass]="{ 'is-invalid': formsubmit && f['name'].errors }" class="form-control"
+                            id="exampleInputName1" aria-describedby="NameHelp" required>
+                        <div class="invalid-feedback" *ngIf="formsubmit && f['name'].errors">
+                            <div *ngIf="f['name'].errors['required']">Name is required</div>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Email address</label>
-                        <input type="text" formControlName="email" class="form-control" id="exampleInputEmail1"
-                            aria-describedby="emailHelp" required [pattern]="emailPattern">
+                        <input type="text" formControlName="email"
+                            [ngClass]="{ 'is-invalid': formsubmit && f['email'].errors }" class="form-control"
+                            id="exampleInputEmail1" aria-describedby="emailHelp" required [pattern]="emailPattern">
                         <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-                        <div class="text-danger"
-                            *ngIf=" f['email'].invalid && formsubmit ">
-                            Please provide a email.
-                        </div>
-                        <div class="text-danger" *ngIf=" f['email'].errors?.pattern"> 
-                            Email not valid.
+                        <div class="invalid-feedback" *ngIf="formsubmit && f['email'].errors">
+                            <div *ngIf="f['email'].errors['required']">Email is required</div>
+                            <div *ngIf=" f['email'].errors?.pattern">
+                                Email not valid.
+                            </div>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputContact1" class="form-label">Contact</label>
-                        <input type="text" formControlName="contact" class="form-control" id="exampleInputContact1"
-                            aria-describedby="contactHelp" required [pattern]="contactPattern">
-                            <div *ngIf="formsubmit && f['contact'].invalid" class="text-danger">
-                                <div *ngIf=" f['contact'].errors?.required && formsubmit">Please enter mobile number</div>
-                                <div *ngIf="f['contact'].errors?.pattern && formsubmit">Mobile number is not 10 digit</div>
-                            </div>
+                        <input type="text" formControlName="contact"
+                            [ngClass]="{ 'is-invalid': formsubmit && f['contact'].errors }" class="form-control"
+                            id="exampleInputContact1" aria-describedby="contactHelp" required>
+                        <div class="invalid-feedback" *ngIf="formsubmit && f['contact'].errors">
+                            <div *ngIf=" f['contact'].errors['required']">Please enter mobile number</div>
+                            <div *ngIf="f['contact'].errors?.pattern">Provide valid Mobile</div>
+                            <div *ngIf="f['contact'].errors?.maxLength && f['contact'].errors?.minLength">Mobile number is not 10 digit</div>
+                        </div>
                     </div>
                     <div class="mb-3">
                         <div class="row">
                             <div class="col">
                                 <label for="exampleInputGender1" class="form-label">Gender</label>
-                                <select class="form-control" formControlName="gender">
+                                <select class="form-control"
+                                    [ngClass]="{ 'is-invalid': formsubmit && f['gender'].errors }"
+                                    formControlName="gender" (change)="selectgen($event)">
                                     <option value="" selected="selected" hidden="hidden">Select Gender</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
                                     <option value="Other">Other</option>
                                 </select>
-                                <div class="text-danger"
-                                    *ngIf="formsubmit && f['gender'].invalid">
-                                    Please provide a gender.
+                                <div class="invalid-feedback" *ngIf="formsubmit && f['gender'].errors">
+                                    <div *ngIf="f['gender'].errors['required']">Gender is required</div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <div  class="mb-3" [ngStyle]="male">
+                        <label for="exampleInputMaleName1" class="form-label">Male Name</label>
+                        <input type="text" formControlName="Mname" class="form-control"
+                            [ngClass]="{ 'is-invalid': formsubmit && f['Mname'].errors }" id="exampleInputMaleName1"
+                        >
+                    </div>
+                    <div  class="mb-3" [ngStyle]="female">
+                        <label for="exampleInputFemaleName1" class="form-label">Female Name</label>
+                        <input type="text" formControlName="Fname" class="form-control"
+                            [ngClass]="{ 'is-invalid': formsubmit && f['Fname'].errors }" id="exampleInputFemaleName1"
+                        >
+                    </div>
+                    <div  class="mb-3" [ngStyle]="other">
+                        <label for="exampleInputOtherName1" class="form-label">Other Name</label>
+                        <input type="text" formControlName="Other" class="form-control"
+                            [ngClass]="{ 'is-invalid': formsubmit && f['Other'].errors }" id="exampleInputOtherName1"
+                        >
+                    </div>
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">Password</label>
                         <input type="password" formControlName="password" class="form-control"
-                            id="exampleInputPassword1" required>
-                        <div class="text-danger"
-                            *ngIf="formsubmit && f['password'].invalid">
-                            Please provide a password.
+                            [ngClass]="{ 'is-invalid': formsubmit && f['password'].errors }" id="exampleInputPassword1"
+                            required>
+                        <div class="invalid-feedback" *ngIf="formsubmit && f['password'].errors">
+                            <div *ngIf="f['email'].errors['required']">Password is required</div>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
