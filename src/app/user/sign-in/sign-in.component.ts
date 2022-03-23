@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { StateServiceService } from 'src/app/services/state-service.service';
+import { district } from '../district.model';
+import { state } from '../state.model';
 
 @Component({
   selector: 'app-sign-in',
@@ -7,9 +10,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./sign-in.component.css']
 })
 export class SignInComponent implements OnInit {
-  formsubmit!: boolean;
 
-  constructor(private fb: FormBuilder) { }
+  formsubmit!: boolean;
+  // selectedStatey: Country = new Country(2, 'Brazil');
+  states:state[];
+  districts:district[];
+
+  constructor(private fb: FormBuilder, private service : StateServiceService) { }
 
   signInForm: any;
   alphaNumeric = "/^[a-zA-Z0-9]+$/";
@@ -28,7 +35,9 @@ export class SignInComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(8)]],
       Mname: ['', [Validators.required]],
       Fname: ['', [Validators.required]],
-      Other: ['', [Validators.required]]
+      Other: ['', [Validators.required]],
+      state: ['', [Validators.required]],
+      district: ['', [Validators.required]]
     });
 
     this.male = {
@@ -42,6 +51,9 @@ export class SignInComponent implements OnInit {
     };
 
     console.log(this.signInForm.controls)
+
+    this.states = this.service.getStates();
+
   }
   // private formsubmit : boolean;
   onSubmit(form: FormGroup) {
@@ -94,6 +106,22 @@ export class SignInComponent implements OnInit {
         "display": "none"
       };
     }
+    else{
+      this.other = {
+        "display": "none"
+      };
+      this.female = {
+        "display": "none"
+      };
+      this.male = {
+        "display": "none"
+      };
+    }
+  }
+
+  onSelect(e : any) {
+    var event = e.target.value;
+    this.districts = this.service.getDistricts().filter((item) => item.stateid == event);
   }
 
   // _keyUp(event: any) {

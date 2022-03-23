@@ -35,11 +35,11 @@ export class InsertComponent implements OnInit {
 
     if (this.id == -1) {
       this.insertForm = this.fb.group({
-        name: ['', Validators.pattern(this.alphaNumeric)],
-        lastName: ['', Validators.pattern(this.alphaNumeric)],
-        email: ['',Validators.pattern(this.emailPattern)],
+        name: ['', Validators.required],
+        lastName: ['', Validators.required],
+        email: ['', Validators.pattern(this.emailPattern)],
         contact: ['', [Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$"), Validators.maxLength(10), Validators.minLength(10)]],
-        address: ['', Validators.pattern(this.alphaNumeric)]
+        address: ['', Validators.required]
 
       })
     } else {
@@ -61,25 +61,29 @@ export class InsertComponent implements OnInit {
 
     if (this.id == -1) {
 
-      if(this.insertForm.valid){
-      const myForm = form.value;
-      const studentJSON = localStorage.getItem('student');
-      let student: any[] = studentJSON ? JSON.parse(studentJSON) : [];
-      student.push(myForm)
-      localStorage.setItem('student', JSON.stringify(student));
-      console.log(localStorage.getItem('student'));
-      this.insertForm.reset();
-      Swal.fire({
-        title: 'REecord addded successfully  :-)',
-        showClass: {
-          popup: 'animate__animated animate__fadeInDown'
-        },
-        hideClass: {
-          popup: 'animate__animated animate__fadeOutUp'
-        }
-      })
-      this.router.navigateByUrl('/curd/operation');
-    }
+      if (this.insertForm.valid) {
+        const myForm = form.value;
+        const studentJSON = localStorage.getItem('student');
+        let student: any[] = studentJSON ? JSON.parse(studentJSON) : [];
+        student.push(myForm)
+        localStorage.setItem('student', JSON.stringify(student));
+        console.log(localStorage.getItem('student'));
+        this.insertForm.reset();
+        Swal.fire({
+          title: 'Record addded successfully  :-)',
+          showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOutUp'
+          }
+        })
+       // window.location.href("/curd/operation")
+       
+       this.router.navigateByUrl('/curd/operation');
+      window.location.reload();
+
+      }
     } else {
       const myForm = form.value;
 

@@ -7,17 +7,25 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'myProject';
-  btn: any;
+  btn: any = false;
   signout() {
     localStorage.removeItem("user")
   }
 
   ngOnInit() {
+    debugger;
     var x = localStorage.getItem('user');
-    if (x === null) {
-      this.btn = {
-        "display": "none"
-      };
+    if (x == null) {
+      // this.btn = {
+      //   "display": "none"
+      // };
+      this.btn = false;
+    }
+    else if(x == "1") {
+      this.btn = true
+      // this.btn = {
+      //   "display": "inline"
+      // };
     }
   }
 

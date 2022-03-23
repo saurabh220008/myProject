@@ -16,7 +16,7 @@
           <div ngbDropdown class="d-inline-block">
             <button class="btn btn-primary" id="dropdownBasic1" title="User Module" ngbDropdownToggle>UserModule</button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-              <button ngbDropdownItem> <a routerLink="/user/addEmployee" class="text-dark" aria-current="page" href="#">list</a></button>
+              <button ngbDropdownItem> <a routerLink="/user/addEmployee" class="text-dark" aria-current="page" href="#">addEmployee</a></button>
               <button ngbDropdownItem> <a routerLink="/user/listing" class="text-dark" aria-current="page" href="#">list</a></button>
               <button ngbDropdownItem><a routerLink="/user/viewSingleEmp" class="text-dark" aria-current="page" href="#">ViewSingleEmp</a></button>
             </div>
@@ -40,6 +40,16 @@
             </div>
           </div>
         </li>    
+
+        <li class="nav-item">
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-primary" id="dropdownBasic1" title="DynamicForm Module" ngbDropdownToggle>DynamicForm Module</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button ngbDropdownItem><a routerLink="/dynamicForm/addForms" class="text-dark" aria-current="page" href="#">addForms</a></button>
+              <button ngbDropdownItem><a routerLink="/dynamicForm/formArray" class="text-dark" aria-current="page" href="#">formArray</a></button>
+            </div>
+          </div>
+        </li>    
       </ul>
       <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
         <li class="nav-item">
@@ -48,7 +58,7 @@
         <li class="nav-item">
           <a routerLink="/user/logIn" class="nav-link active" aria-current="page" href="#">LogIn</a>
         </li>      
-        <li class="nav-item" [ngStyle]="btn">
+        <li class="nav-item" *ngIf="btn">
           <a (click)="signout()" class="nav-link active" aria-current="page" href="#">logout</a>
         </li>  
       </ul>
