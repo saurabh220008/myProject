@@ -61,9 +61,16 @@
                                                 [disabled]="formArray.invalid" (click)="addItems()">Add Items</button>
                                             <ol class="memberList">
                                                 <li class="mb-3"
-                                                    *ngFor="let item of addDynamicElement.controls; let i = index">
-                                                    <input type="text" class="form-control" [formControlName]="i">
-                                                    <span (click)="deleteItems(i)" class="btn-sm btn-danger">Delete</span>
+                                                    *ngFor="let item of formArray.get('members')['controls']; let i = index"
+                                                    [formGroup]="item">
+                                                    <input type="text" class="form-control" formControlName="mem">
+                                                    <div class="text-danger" *ngIf="formsubmit && valid(i) == ''">
+                                                        <!-- <div *ngIf=" addDynamicElement['mem'].errors?.required"> -->
+                                                        Please enter member
+                                                        <!-- </div> -->
+                                                    </div>
+                                                    <span (click)="deleteItems(i)"
+                                                        class="btn-sm btn-danger">Delete</span>
                                                 </li>
                                             </ol>
                                         </div>

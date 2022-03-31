@@ -10,6 +10,7 @@ export class FormArrayComponent implements OnInit {
   formArray: any;
   formsubmit!: boolean;
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
+  members: any;
 
   constructor(public fb: FormBuilder) { }
 
@@ -21,12 +22,23 @@ export class FormArrayComponent implements OnInit {
       email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
       contact: ['', [Validators.required, Validators.pattern('[0-9]*'), Validators.maxLength(10), Validators.minLength(10)]],
       members: this.fb.array([])
-    })
+    });
+    
   }
 
+
   onSubmit() {
-    alert(JSON.stringify(this.formArray.value))
-  }
+    debugger;
+    const ab = this.formArray.get('members') as FormArray
+    this.formsubmit = true
+    if (this.formArray.valid) 
+   
+     
+        alert(JSON.stringify(this.formArray.value))
+      
+    
+    }
+  
 
   get f() {
     return this.formArray.controls;
@@ -34,17 +46,29 @@ export class FormArrayComponent implements OnInit {
 
   /*############### Add Dynamic Elements ###############*/
   get addDynamicElement() {
-    return this.formArray.get('members') as FormArray
+    return this.formArray.get('members').controls;
+  }
+
+  valid(i: any) {
+    debugger;
+    const ab = this.formArray.get('members') as FormArray
+   
+    return ab.value[i].mem
   }
 
   addItems() {
-    this.addDynamicElement.push(this.fb.control(''));
+    const ab = this.formArray.get('members') as FormArray
+    ab.push(
+      this.fb.group({
+        mem:["",[Validators.required]]
+      })
+    )
   }
 
-  deleteItems(i:number) {
-    const del =  this.formArray.get('members') as FormArray
+  deleteItems(i: number) {
+    const del = this.formArray.get('members') as FormArray
     del.removeAt(i);
-    
+
   }
 
 

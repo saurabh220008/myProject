@@ -1,3 +1,4 @@
+import { computeMsgId } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -16,6 +17,8 @@ export class StepLogInComponent implements OnInit {
   second!: FormGroup;
   tab: number = 1;
   user: '1';
+  btn: any = true;
+  sbtn: any = false;
   constructor(private fb: FormBuilder) { }
 
   currentTab = 0;
@@ -27,32 +30,30 @@ export class StepLogInComponent implements OnInit {
 
   ngOnInit(): void {
 
-    localStorage.setItem('sessionUser', this.user);
-
-
     this.stepForm = this.fb.group({
       name: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
       contact: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$"), Validators.maxLength(10), Validators.minLength(10)]],
+      address: ['', [Validators.required]],
     });
 
 
-    this.stepForm1 = this.fb.group([
-      this.firsTab = this.fb.group({
-        name: ['', [Validators.required]],
-        lastName: ['', [Validators.required]],
+    // this.stepForm1 = this.fb.group([
+    //   this.firsTab = this.fb.group({
+    //     name: ['', [Validators.required]],
+    //     lastName: ['', [Validators.required]],
 
-      }),
-      this.second = this.fb.group({
-        email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
-        contact: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$"), Validators.maxLength(10), Validators.minLength(10)]],
-
-
-      })
+    //   }),
+    //   this.second = this.fb.group({
+    //     email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
+    //     contact: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$"), Validators.maxLength(10), Validators.minLength(10)]],
 
 
-    ])
+    //   })
+
+
+    // ])
   }
 
   onSubmit(form: FormGroup) {
@@ -60,7 +61,7 @@ export class StepLogInComponent implements OnInit {
     debugger;
     this.formsubmit = true;
     if (this.stepForm.valid) {
-      console.log(JSON.stringify(form.value))
+      alert(JSON.stringify(form.value))
     }
   }
 
@@ -75,10 +76,13 @@ export class StepLogInComponent implements OnInit {
       }
     }
     if (this.tab == 2) {
-      //this.tab++;
+      if (this.stepForm.get("email").valid && this.stepForm.get("contact").valid) {
+        this.tab++;
+      }
     }
     if (this.tab == 3) {
-      //this;
+      this.btn=false;
+      this.sbtn=true;
     }
   }
   prev() {

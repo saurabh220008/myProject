@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {  } from './account/login/login.component';
 
 @Component({
   selector: 'app-root',
@@ -7,26 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'myProject';
-  btn: any = false;
-  signout() {
-    localStorage.removeItem("user")
-  }
+  x: any;
 
   ngOnInit() {
     debugger;
-    var x = localStorage.getItem('user');
-    if (x == null) {
-      // this.btn = {
-      //   "display": "none"
-      // };
-      this.btn = false;
-    }
-    else if(x == "1") {
-      this.btn = true
-      // this.btn = {
-      //   "display": "inline"
-      // };
-    }
+    this.x = localStorage.getItem('user');
   }
-
 }

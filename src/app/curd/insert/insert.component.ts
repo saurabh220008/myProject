@@ -81,7 +81,6 @@ export class InsertComponent implements OnInit {
        // window.location.href("/curd/operation")
        
        this.router.navigateByUrl('/curd/operation');
-      window.location.reload();
 
       }
     } else {
