@@ -185,7 +185,7 @@ export class OperationComponent implements OnInit {
 
   addfile(event: any) {
     localStorage.removeItem("sheet");
-    console.log(localStorage.getItem("sheet"))
+    // localStorage.getItem("sheet");
     localStorage.removeItem("errorList");
     localStorage.removeItem("successList");
     this.file = event.target.files[0];
