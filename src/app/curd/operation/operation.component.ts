@@ -9,7 +9,19 @@ import * as CryptoJS from 'crypto-js';
 @Component({
   selector: 'app-operation',
   templateUrl: './operation.component.html',
-  styleUrls: ['./operation.component.css']
+  styleUrls: ['./operation.component.css'],
+  styles: [`
+    .dark-modal .modal-content {
+      background-color: #292b2c;
+      color: white;
+    }
+    .dark-modal .close {
+      color: white;
+    }
+    .light-blue-backdrop {
+      background-color: #5cb3fd;
+    }
+  `]
 })
 export class OperationComponent implements OnInit {
   student: any;
@@ -27,6 +39,8 @@ export class OperationComponent implements OnInit {
   successList: any
   scount: any
   ecount: any
+  successEnc: any
+  errorEnc: any
 
   constructor(private service: EmployeeServiceService, private router: Router, private modalService: NgbModal) {
 
@@ -236,30 +250,42 @@ export class OperationComponent implements OnInit {
           "Shipment_Data": x[i]['Shipment Data']
         })
       }
-
-      localStorage.setItem("errorList", JSON.stringify(this.error))
-      localStorage.setItem("successList", JSON.stringify(this.success))
-      /// console.log(JSON.parse(JSON.stringify(el)));
-      localStorage.getItem("errorList");
-
-      // console.log('-----------------')
-      const el = localStorage.getItem("errorList");
-      this.errorList = JSON.parse(el || '{}');
-      console.log(this.errorList)
-
-
-      const sl = localStorage.getItem("successList");
-
-      // console.log('-----------------')
-
-      this.successList = JSON.parse(sl || '{}');
-      console.log(this.successList);
-
     }
+
+    this.successEnc = CryptoJS.AES.encrypt(JSON.stringify(this.success), '').toString();
+    this.errorEnc = CryptoJS.AES.encrypt(JSON.stringify(this.error), '').toString();
+    debugger;
+    console.log(this.successEnc)
+    console.log(this.errorEnc)
+    var b = CryptoJS.AES.decrypt(this.successEnc, '').toString(CryptoJS.enc.Utf8)
+    console.log(JSON.parse(b));
+
+    localStorage.setItem("errorList", JSON.stringify(this.errorEnc))
+    localStorage.setItem("successList", JSON.stringify(this.successEnc))
+    /// console.log(JSON.parse(JSON.stringify(el)));
+    localStorage.getItem("errorList");
+
+    // console.log('-----------------')
+    const el = localStorage.getItem("errorList");
+    this.errorList = JSON.parse(el || '{}');
+    // console.log(this.errorList)
+    this.errorList = (JSON.parse(CryptoJS.AES.decrypt(this.errorEnc, '').toString(CryptoJS.enc.Utf8)))
+
+
+    const sl = localStorage.getItem("successList");
+
+    // console.log('-----------------')
+
+    this.successList = JSON.parse(sl || '{}');
+    this.successList = JSON.parse(CryptoJS.AES.decrypt(this.successEnc, '').toString(CryptoJS.enc.Utf8)) 
+
+    // console.log(this.successList);
+
+    // }
 
     //Download File
 
-    this.exportToExcel()
+    // this.exportToExcel()
 
     this.op(ship)
 
