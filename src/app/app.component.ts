@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {  } from './account/login/login.component';
 
 @Component({
   selector: 'app-root',
@@ -7,8 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'myProject';
-  signout() {
-    localStorage.removeItem("user")
+  x: any;
+
+  ngOnInit() {
+    debugger;
+    this.x = localStorage.getItem('user');
   }
 }
-

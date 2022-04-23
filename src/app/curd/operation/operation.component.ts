@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EmployeeServiceService } from 'src/app/services/employee-service.service';
 import Swal from 'sweetalert2';
+import * as XLSX from 'xlsx';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-operation',
@@ -12,14 +14,29 @@ import Swal from 'sweetalert2';
 export class OperationComponent implements OnInit {
   student: any;
   singlestudent: any;
-  this: any;
   closeResult = '';
+  file: File;
+  arrayBuffer: any;
+  filelist: any;
+  error: any[] = [];
+  success: any[] = [];
+  alpha = "^[A-z]{4}[0-9]{7}$"
+  excel: any[];
+  data: any;
+  errorList: any
+  successList: any
+  scount: any
+  ecount: any
 
-  constructor(private service: EmployeeServiceService, private router: Router, private modalService: NgbModal) { }
+  constructor(private service: EmployeeServiceService, private router: Router, private modalService: NgbModal) {
+
+  }
+
 
   ngOnInit() {
     // this.getAllEmp();
     this.getdata();
+    this.successData();
   }
   employeedata: any;
   eid!: number;
@@ -63,14 +80,41 @@ export class OperationComponent implements OnInit {
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
+      localStorage.removeItem("sheet");
+      console.log(localStorage.getItem("sheet"))
+      localStorage.removeItem("errorList");
+      localStorage.removeItem("successList");
       return 'by pressing ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      localStorage.removeItem("sheet");
+      console.log(localStorage.getItem("sheet"))
+      localStorage.removeItem("errorList");
+      localStorage.removeItem("successList");
       return 'by clicking on a backdrop';
     } else {
       return `with: ${reason}`;
     }
   }
 
+  op(ship: any) {
+    debugger;
+    // this.singlestudent = 
+    this.errorList;
+    // this.singlestudent = 
+    this.successList;
+    this.modalService.open(ship, { size: 'xl', ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  clear() {
+    localStorage.removeItem("sheet");
+    console.log(localStorage.getItem("sheet"))
+    localStorage.removeItem("errorList");
+    localStorage.removeItem("successList")
+  }
   edit(id: number) {
     this.sid = id;
     this.router.navigateByUrl('/curd/insert/' + this.sid);
@@ -124,4 +168,131 @@ export class OperationComponent implements OnInit {
     })
   }
 
+
+  addfile(event: any) {
+    localStorage.removeItem("sheet");
+    console.log(localStorage.getItem("sheet"))
+    localStorage.removeItem("errorList");
+    localStorage.removeItem("successList");
+    this.file = event.target.files[0];
+  }
+
+  uploadfile(ship: any) {
+    debugger;
+    // this.file = event.target.files[0];
+    let fileReader = new FileReader();
+    fileReader.readAsArrayBuffer(this.file);
+
+    fileReader.onload = (e) => {
+      this.arrayBuffer = fileReader.result;
+      var data = new Uint8Array(this.arrayBuffer);
+      var arr = new Array();
+      for (var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+      var bstr = arr.join("");
+      var workbook = XLSX.read(bstr, { type: "binary" });
+      var first_sheet_name = workbook.SheetNames[0];
+      console.log(first_sheet_name);
+      var worksheet = workbook.Sheets[first_sheet_name];
+      console.log(worksheet);
+      console.log(XLSX.utils.sheet_to_json(worksheet, { raw: true }));
+      var arraylist = XLSX.utils.sheet_to_json(worksheet, { raw: true });
+      this.filelist = arraylist;
+      console.log(this.filelist)
+
+
+      localStorage.setItem("sheet", JSON.stringify(this.filelist));
+    }
+    const sheet = JSON.parse(JSON.stringify(localStorage.getItem("sheet")));
+    // console.log(JSON.parse(sheet));
+    var x = JSON.parse(sheet)
+
+    for (let i = 0; i < x.length; i++) {
+
+      if (x[i]['Container No'] == null || x[i]['Port Name'] == null || x[i]['Shipment Data'] == null) {
+        // console.log(x[i]);
+        this.error.push({
+          "Container_No": x[i]['Container No'],
+          "Port_Name": x[i]['Port Name'],
+          "Shipment_Data": x[i]['Shipment Data']
+        })
+        // console.log(this.error)
+      } else if (!x[i]['Container No'].match(this.alpha)) {
+        // console.log(x[i]);
+
+        //===========================================================================
+        // Pattern Matching
+        //-----------------------------------------------------------------------------
+
+        this.error.push({
+          "Container_No": x[i]['Container No'],
+          "Port_Name": x[i]['Port Name'],
+          "Shipment_Data": x[i]['Shipment Data']
+        })
+        // console.log(this.error)
+      } else {
+        this.success.push({
+          "Container_No": x[i]['Container No'],
+          "Port_Name": x[i]['Port Name'],
+          "Shipment_Data": x[i]['Shipment Data']
+        })
+      }
+
+      localStorage.setItem("errorList", JSON.stringify(this.error))
+      localStorage.setItem("successList", JSON.stringify(this.success))
+      /// console.log(JSON.parse(JSON.stringify(el)));
+      localStorage.getItem("errorList");
+
+      // console.log('-----------------')
+      const el = localStorage.getItem("errorList");
+      this.errorList = JSON.parse(el || '{}');
+      console.log(this.errorList)
+
+
+      const sl = localStorage.getItem("successList");
+
+      // console.log('-----------------')
+
+      this.successList = JSON.parse(sl || '{}');
+      console.log(this.successList);
+
+    }
+
+    //Download File
+
+    this.exportToExcel()
+
+    this.op(ship)
+
+  }
+
+  successData() {
+    // const sl = localStorage.getItem("successList");
+
+    // console.log('-----------------')
+
+    this.successList;
+  }
+
+  errorData() {
+    // const el = localStorage.getItem("errorList");
+
+    // console.log('-----------------')
+
+    this.errorList
+    // console.log(this.errorList);
+  }
+
+
+  exportToExcel() {
+    debugger
+    const fileName = 'errorList.xlsx';
+
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.errorList);
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'test');
+
+    XLSX.writeFile(wb, fileName);
+  }
+
 }
+

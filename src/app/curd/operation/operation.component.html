@@ -1,73 +1,157 @@
-<div ng-app="myapp" ng-controller="tableController">
-    <table class="table table-stripe">
+<div class="container">
+    <div ng-app="myapp" ng-controller="tableController">
+        <table class="table table-stripe">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>lastName</th>
+                    <th>email</th>
+                    <th>contact</th>
+                    <th>address</th>
+                    <th colspan="4" class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of student let i = index">
+                    <td> {{i+1 }} </td>
+                    <td> {{ item.name }} </td>
+                    <td> {{ item.lastName }} </td>
+                    <td> {{ item.email }} </td>
+                    <td> {{ item.contact }} </td>
+                    <td> {{ item.address }} </td>
+                    <td><button class="btn btn-success" (click)="open(content, i)">view</button>
+                    <td><button (click)="edit(i)" class="btn btn-warning">Edit</button></td>
+                    <td><button (click)="delete(i)" class="btn btn-danger">Delete</button></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <ng-template #content let-modal>
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Profile : {{ singlestudent.name }}</h4>
+                <button type="button" class="btn-close" aria-label="Close"
+                    (click)="modal.dismiss('Cross click')"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+
+                        <table class="table table-stripe">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>lastName</th>
+                                    <th>email</th>
+                                    <th>contact</th>
+                                    <th>address</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td> {{ singlestudent.name }} </td>
+                                    <td> {{ singlestudent.lastName }} </td>
+                                    <td> {{ singlestudent.email }} </td>
+                                    <td> {{ singlestudent.contact }} </td>
+                                    <td> {{ singlestudent.address }} </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+            </div>
+        </ng-template>
+
+
+    </div>
+    <div class="row">
+        <div class="mb-3 col-sm-6">
+            <label for="formFile" class="form-label"> file input </label>
+            <input class="form-control" type="file" (change)="addfile($event)" id="formFile"
+                accept=".csv,.xlsx,.excel application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+        </div>
+        <div class="mb-3 pt-4 col-sm-6">
+            <button class="btn btn-success" (click)="uploadfile(ship)">Upload</button>
+        </div>
+    </div>
+
+    <!-- <table class="table table-stripe">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>lastName</th>
-                <th>email</th>
-                <th>contact</th>
-                <th>address</th>
-                <th colspan="4" class="text-center">Action</th>
+                <th>Container No</th>
+                <th>Port Name</th>
+                <th>Shipment Data</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of student let i = index">
-                <td> {{i+1 }} </td>
-                <td> {{ item.name }} </td>
-                <td> {{ item.lastName }} </td>
-                <td> {{ item.email }} </td>
-                <td> {{ item.contact }} </td>
-                <td> {{ item.address }} </td>
-                <td><button class="btn btn-success" (click)="open(content, i)">view</button>
-                <td><button (click)="edit(i)" class="btn btn-warning">Edit</button></td>
-                <td><button (click)="delete(i)" class="btn btn-danger">Delete</button></td>
+            <tr *ngFor="let item of successList">
+                <td> {{item.Container_No }} </td>
+                <td> {{ item.Port_Name }} </td>
+                <td> {{ item.Shipment_Data }} </td>
             </tr>
         </tbody>
-    </table>
+    </table> -->
 
-    <ng-template #content let-modal>
+    <ng-template #ship let-modal>
         <div class="modal-header">
-            <h4 class="modal-title" id="modal-basic-title">Profile : {{ singlestudent.name }}</h4>
+            <h4 class="modal-title" id="modal-basic-title">Sheet Data List</h4>
             <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
         </div>
         <div class="modal-body">
-            <form>
-                <div class="mb-3">
+            <div class="row">
+                <div class="col-6">
+                    <p>Success Count: {{successList.length}}</p>
+                    <div class="mb-3">
+                        <table class="table table-stripe">
+                            <thead>
+                                <tr>
+                                    <th>Container No</th>
+                                    <th>Port Name</th>
+                                    <th>Shipment Data</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of successList">
+                                    <td> {{item.Container_No }} </td>
+                                    <td> {{ item.Port_Name }} </td>
+                                    <td> {{ item.Shipment_Data }} </td>
+                                </tr>
+                            </tbody>
+                        </table>
 
-                    <table class="table table-stripe">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>lastName</th>
-                                <th>email</th>
-                                <th>contact</th>
-                                <th>address</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td> {{ singlestudent.name }} </td>
-                                <td> {{ singlestudent.lastName }} </td>
-                                <td> {{ singlestudent.email }} </td>
-                                <td> {{ singlestudent.contact }} </td>
-                                <td> {{ singlestudent.address }} </td>
-                            </tr>
-                        </tbody>
-                    </table>
-
+                    </div>
                 </div>
-            </form>
+                <div class="col-6">
+                    <p>Error Count: {{errorList.length}}</p>
+                    <div class="mb-3">
+                        <table class="table table-stripe">
+                            <thead>
+                                <tr>
+                                    <th>Container No</th>
+                                    <th>Port Name</th>
+                                    <th>Shipment Data</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of errorList">
+                                    <td> {{item.Container_No }} </td>
+                                    <td> {{ item.Port_Name }} </td>
+                                    <td> {{ item.Shipment_Data }} </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+            <button type="button" class="btn btn-outline-dark" (click)="('Save click')">Save</button>
         </div>
     </ng-template>
-
-
-
-
 </div>
-
-
-<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button> -->

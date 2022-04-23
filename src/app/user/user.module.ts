@@ -7,6 +7,7 @@ import { LogInComponent } from './log-in/log-in.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ListingComponent } from './listing/listing.component';
 import { ViewSingleEmpComponent } from './view-single-emp/view-single-emp.component';
+import { AddEmployeeComponent } from './add-employee/add-employee.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { ViewSingleEmpComponent } from './view-single-emp/view-single-emp.compon
     SignInComponent,
     LogInComponent,
     ListingComponent,
-    ViewSingleEmpComponent
+    ViewSingleEmpComponent,
+    AddEmployeeComponent
   ],
   imports: [
     CommonModule,

@@ -22,7 +22,7 @@
                 <td> {{ item.deptId }} </td>
                 <td> {{ item.file }} </td>
                 <td><button (click)="view(item.empId)" class="btn btn-success">View</button></td>
-                <td><button class="btn btn-danger">edit</button></td>
+                <td><button (click)="delete(item.empId)" class="btn btn-danger">Delete</button></td>
             </tr>
         </tbody>
     </table>

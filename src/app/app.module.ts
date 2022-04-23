@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -11,11 +11,17 @@ import { StepLogInComponent } from './MyComponents/step-log-in/step-log-in.compo
 import { CurdModule } from './curd/curd.module';
 import { AuthguardServiceService } from './services/authguard-service.service';
 import { AccountModule } from './account/account.module';
+import { HeaderComponent } from './layout/header/header.component';
+import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
+import { FooterComponent } from './layout/footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    StepLogInComponent
+    StepLogInComponent,
+    HeaderComponent,
+    MainLayoutComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +31,8 @@ import { AccountModule } from './account/account.module';
     NgbModule,
     HttpClientModule,
     CurdModule,
-    AccountModule
+    AccountModule,
+    FormsModule
   ],
   providers: [
     AuthguardServiceService

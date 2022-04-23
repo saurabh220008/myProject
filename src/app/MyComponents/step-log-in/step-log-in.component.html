@@ -21,7 +21,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputSurname1" class="form-label">Last Name</label>
-                            <input type="password" formControlName="lastName" class="form-control"
+                            <input type="text" formControlName="lastName" class="form-control"
                                 id="exampleInputSurname1" required >
                             <div class="text-danger" *ngIf="f['lastName'].invalid && formsubmit">
                                 Please provide a last name.
@@ -67,18 +67,19 @@
                         <div class="mb-3">
                             <label for="exampleInputAddress1" class="form-label">Address:</label>
                             <textarea type="text" formControlName="address" class="form-control" id="exampleInputEmail1"
-                                aria-describedby="emailHelp" required [pattern]="emailPattern">
+                                aria-describedby="emailHelp" required>
                             </textarea>
 
                             <div class="text-danger" *ngIf="f['address'].invalid && formsubmit">
-                                Please provide a email.
+                                Please provide a address.
                             </div>
                         </div>
 
                     </div>
 
                     <button type="button" (click)="prev()" class="btn btn-primary">Previous</button>
-                    <button type="button" (click)="next()" class="btn btn-success m-2">Next</button>
+                    <button type="button" *ngIf="btn" (click)="next()" class="btn btn-success m-2">Next</button>
+                    <button type="submit" *ngIf="sbtn"  class="btn btn-success m-2">Submit</button>
                 </form>
 
             </div>
